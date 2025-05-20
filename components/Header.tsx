@@ -1,21 +1,26 @@
-'use client';
+'use client'
 
-import Link from 'next/link';
-import DarkModeToggle from './DarkModeToggle';
-
+import Link from 'next/link'
+import useDarkMode from '@/hooks/useDarkMode'
+import { Moon, Sun } from 'lucide-react'
 
 export default function Header() {
-  return (
-    <header className="w-full py-4 px-6 flex justify-between items-center border-b border-gray-300 dark:border-gray-700">
-      <Link href="/" className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">
-        Quranium
-      </Link>
-      <DarkModeToggle />
+  const [isDark, toggleDark] = useDarkMode()
 
-      <nav className="space-x-6">
-        <Link href="/" className="hover:underline text-gray-700 dark:text-gray-300">Home</Link>
-        <Link href="/about" className="hover:underline text-gray-700 dark:text-gray-300">About</Link>
+  return (
+    <header className="flex justify-between items-center px-4 py-3 border-b border-gray-300 dark:border-gray-700">
+      <h1 className="text-xl font-bold">
+        <Link href="/">Quranium</Link>
+      </h1>
+      <nav className="flex items-center gap-4">
+        <Link href="/about">About</Link>
+        <button
+          onClick={toggleDark}
+          className="p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-800"
+        >
+          {isDark ? <Sun size={20} /> : <Moon size={20} />}
+        </button>
       </nav>
     </header>
-  );
+  )
 }
